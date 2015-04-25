@@ -1,5 +1,5 @@
 # nginx-rtmp
-simple nginx-based rtmp-server
+A simple NGINX-based RTMP-Server
 
 * Start the Docker-Application:
 
