@@ -6,6 +6,7 @@ A simple NGINX-based RTMP-Server
  ```sh
 docker run -d -p 1935:1935 datarhei/nginx-rtmp
  ```
+
 ## Streaming-Example
 
 * Send a stream:
