@@ -3,13 +3,13 @@ A simple NGINX-based RTMP-Server
 
 ## Start the Docker-Application:
 
-* amd64-Example:
+* amd64:
 
  ```sh
 docker run -d -p 1935:1935 datarhei/nginx-rtmp
  ```
  
-* armhf-Example:
+* armhf:
 
  ```sh
 docker run -d -p 1935:1935 datarhei/nginx-rtmp:armhf
