@@ -1,6 +1,8 @@
 # nginx-rtmp
 A simple NGINX-based RTMP-Server
 
+[![dockeri.co](http://dockeri.co/image/datarhei/nginx-rtmp)](https://registry.hub.docker.com/u/datarhei/nginx-rtmp/)
+
 ## Start the Docker-Application:
 
 * amd64:
