@@ -1,10 +1,18 @@
 # nginx-rtmp
 A simple NGINX-based RTMP-Server
 
-* Start the Docker-Application:
+## Start the Docker-Application:
+
+* amd64-Example:
 
  ```sh
 docker run -d -p 1935:1935 datarhei/nginx-rtmp
+ ```
+ 
+* armhf-Example:
+
+ ```sh
+docker run -d -p 1935:1935 datarhei/nginx-rtmp:armhf
  ```
 
 ## Streaming-Example
