@@ -1,4 +1,4 @@
-FROM datarhei/ffmpeg:3.1 as builder
+FROM datarhei/ffmpeg:3.1-armhf as builder
 
 ENV NGINX_VERSION=1.9.9 \
     NGINX_RTMP_VERSION=1.1.7.10 \
@@ -45,7 +45,7 @@ RUN export buildDeps="autoconf \
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 
-FROM alpine:latest
+FROM resin/armhf-alpine:latest
 
 MAINTAINER datarhei <info@datarhei.org>
 
