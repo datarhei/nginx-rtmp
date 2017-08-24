@@ -1,7 +1,7 @@
-FROM datarhei/ffmpeg:3.1-armhf as builder
+FROM datarhei/ffmpeg:3.1-armhf as ffmpeg
 
-ENV NGINX_VERSION=1.9.9 \
-    NGINX_RTMP_VERSION=1.1.7.10 \
+ENV NGINX_VERSION=1.13.4 \
+    NGINX_RTMP_VERSION=dev \
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     SRC=/usr/local
 
@@ -30,8 +30,8 @@ RUN export buildDeps="autoconf \
     DIR="$(mktemp -d)" && cd "${DIR}" && \
     curl -LOks "https://github.com/nginx/nginx/archive/release-${NGINX_VERSION}.tar.gz" && \
     tar xzvf "release-${NGINX_VERSION}.tar.gz" && \
-    curl -LOks "https://github.com/sergey-dryabzhinsky/nginx-rtmp-module/archive/v${NGINX_RTMP_VERSION}.tar.gz" && \
-    tar xzvf "v${NGINX_RTMP_VERSION}.tar.gz" && \
+    curl -LOks "https://github.com/sergey-dryabzhinsky/nginx-rtmp-module/archive/${NGINX_RTMP_VERSION}.tar.gz" && \
+    tar xzvf "${NGINX_RTMP_VERSION}.tar.gz" && \
     cd "nginx-release-${NGINX_VERSION}" && \
     auto/configure \
         --with-http_ssl_module \
@@ -52,10 +52,10 @@ MAINTAINER datarhei <info@datarhei.org>
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     SRC=/usr/local
 
-COPY --from=builder /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
-COPY --from=builder /usr/local/bin/ffprobe /usr/local/bin/ffprobe
-COPY --from=builder /usr/local/lib /usr/local/lib
-COPY --from=builder /usr/local/nginx /usr/local/nginx
+COPY --from=ffmpeg /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
+COPY --from=ffmpeg /usr/local/bin/ffprobe /usr/local/bin/ffprobe
+COPY --from=ffmpeg /usr/local/lib /usr/local/lib
+COPY --from=ffmpeg /usr/local/nginx /usr/local/nginx
 
 RUN apk add --no-cache --update libssl1.0 pcre && \
     ffmpeg -buildconf
