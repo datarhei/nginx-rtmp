@@ -4,7 +4,7 @@ NGINX + RTMP-Module Image for H.264-Processing (e.g. RTMP, HLS)
 
 * Alipne Linux (3.6)
 * FFmpeg 3.1
-* Docker-Images for AMD64 and ARMHF (e.g. Raspberry-Pi)
+* Docker-Images for AMD64, ARMHF (e.g. Raspberry-Pi) and ARM64 (e.g. Pine64)
 
 **Config:**
 ```sh
@@ -26,14 +26,16 @@ daemon off;
 
 ## Published Images
 
-* `1.9.9-1.1.7.10` (docker pull `datarhei/nginx-rtmp:1.9.9-1.1.7.10`)
-* `1.9.9-1.1.7.10-armhf` (docker pull `datarhei/nginx-rtmp:1.9.9-1.1.7.10-armhf`)
+* `1.13.4-dev` (docker pull `datarhei/nginx-rtmp:1.13.4-dev`)
+* `1.13.4-dev-armhf` (docker pull `datarhei/nginx-rtmp:1.13.4-dev-armhf`)
+* `1.13.4-dev-arm64` (docker pull `datarhei/nginx-rtmp:1.13.4-dev-arm64`)
 
 ## Example
 
 * Start the image:  
-  `docker run -d -p 1935:1935 datarhei/nginx-rtmp:1.9.9-1.1.7.10` for AMD64 or   
-  `docker run -d -p 1935:1935 datarhei/nginx-rtmp:1.9.9-1.1.7.10-armhf` for ARMHF
+  `docker run -d -p 1935:1935 datarhei/nginx-rtmp:1.13.4-dev` for AMD64   
+  `docker run -d -p 1935:1935 datarhei/nginx-rtmp:1.13.4-dev-armhf` for ARMHF
+  `docker run -d -p 1935:1935 datarhei/nginx-rtmp:1.13.4-dev-arm64` for ARM64
 * Send a stream:  
   `ffmpeg -i input -c copy -f flv rtmp://localhost:1935/live/input`
 * Receive a stream:  
