@@ -47,14 +47,14 @@ daemon off;
 
 ```sh
 docker build -t nginx-rtmp:dev \
-             --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3 \
-             --build-arg ALPINE_IMAGE=alpine:latest . 
+              --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3 \
+              --build-arg ALPINE_IMAGE=alpine:latest . 
              
 docker build -t nginx-rtmp:armhf \
-             --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3-armhf \
-             --build-arg ALPINE_IMAGE=resin/armhf-alpine:latest . 
+              --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3-armhf \
+              --build-arg ALPINE_IMAGE=resin/armhf-alpine:latest . 
              
 docker build -t nginx-rtmp:aarch64 \
-             --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3-aarch64 \
-             --build-arg ALPINE_IMAGE=resin/aarch64-alpine:latest .
+              --build-arg FFMPEG_IMAGE=datarhei/ffmpeg:3-aarch64 \
+              --build-arg ALPINE_IMAGE=resin/aarch64-alpine:latest .
 ```
