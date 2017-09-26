@@ -1,6 +1,9 @@
-FROM datarhei/ffmpeg:3.1 as ffmpeg
+ARG FFMPEG_IMAGE=datarhei/ffmpeg:3
+ARG ALPINE_IMAGE=alpine:latest
 
-ENV NGINX_VERSION=1.13.4 \
+FROM $FFMPEG_IMAGE as ffmpeg
+
+ENV NGINX_VERSION=1.13.5 \
     NGINX_RTMP_VERSION=dev \
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     SRC=/usr/local
@@ -45,7 +48,7 @@ RUN export buildDeps="autoconf \
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 
-FROM alpine:latest
+FROM $ALPINE_IMAGE
 
 MAINTAINER datarhei <info@datarhei.org>
 
