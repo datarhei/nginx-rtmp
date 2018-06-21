@@ -1,9 +1,9 @@
-ARG FFMPEG_IMAGE=datarhei/ffmpeg:3
+ARG FFMPEG_IMAGE=datarhei/ffmpeg:4
 ARG ALPINE_IMAGE=alpine:latest
 
-FROM $FFMPEG_IMAGE as ffmpeg
+FROM $FFMPEG_IMAGE as builder
 
-ENV NGINX_VERSION=1.13.5 \
+ENV NGINX_VERSION=1.15.0 \
     NGINX_RTMP_VERSION=dev \
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     SRC=/usr/local
@@ -38,7 +38,7 @@ RUN export buildDeps="autoconf \
     cd "nginx-release-${NGINX_VERSION}" && \
     auto/configure \
         --with-http_ssl_module \
-        --add-module="../nginx-rtmp-module-${NGINX_RTMP_VERSION}" && \
+        --add-module="../nginx-rtmp-module-${NGINX_RTMP_VERSION}" --with-http_ssl_module && \
     make && \
     make install && \
     rm -rf "${DIR}" && \
@@ -55,10 +55,10 @@ MAINTAINER datarhei <info@datarhei.org>
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     SRC=/usr/local
 
-COPY --from=ffmpeg /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
-COPY --from=ffmpeg /usr/local/bin/ffprobe /usr/local/bin/ffprobe
-COPY --from=ffmpeg /usr/local/lib /usr/local/lib
-COPY --from=ffmpeg /usr/local/nginx /usr/local/nginx
+COPY --from=builder /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
+COPY --from=builder /usr/local/bin/ffprobe /usr/local/bin/ffprobe
+COPY --from=builder /usr/local/lib /usr/local/lib
+COPY --from=builder /usr/local/nginx /usr/local/nginx
 
 RUN apk add --no-cache --update libssl1.0 pcre && \
     ffmpeg -buildconf
